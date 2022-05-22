@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+
+import { PaisesModel } from '../shared/model/Paises.model';
+import { AppSettingsService } from '../shared/services/app-settings.service';
 
 @Component({
   selector: 'app-table',
@@ -6,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  title = 'Table';
+  paises$: Observable<PaisesModel[]>;
 
-  constructor() { }
+  constructor(private appSettingsService: AppSettingsService) { }
 
   ngOnInit() {
+    this.paises$ = this.appSettingsService.getPaises();
   }
 
 }

@@ -1,3 +1,6 @@
-<p>
-  table works!
-</p>
+<ul>
+  <strong> <span>{{ title }} is running!</span></strong>
+  <li *ngFor="let pais of (paises$ |async); let i = index" [attr.data-index]="i">
+    {{pais.codigo}} - {{pais.nomeFormal}}
+  </li>
+</ul>
