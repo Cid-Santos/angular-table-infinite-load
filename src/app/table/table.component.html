@@ -1,6 +1,38 @@
-<ul>
-  <strong> <span>{{ title }} is running!</span></strong>
-  <li *ngFor="let pais of (paises$ |async); let i = index" [attr.data-index]="i">
-    {{pais.codigo}} - {{pais.nomeFormal}}
-  </li>
-</ul>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource$" (scroll)="onTableScroll($event)">
+
+        <!-- Code Column -->
+        <ng-container matColumnDef="code">
+          <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.codigo}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="iso3">
+          <mat-header-cell *matHeaderCellDef> ISO 3 </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.iso3}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.nome}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="formalname">
+          <mat-header-cell *matHeaderCellDef> Formal Name </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.nomeFormal}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; let i= index" (click)="selectedRow(row)"
+          [ngClass]="{'highlightTableColor': selectedRowIndex == i}"></mat-row>
+      </mat-table>
+  </mat-card-content>
+</mat-card>
